@@ -43,6 +43,8 @@
     </Content>
     <Content Include="public\stylesheets\main.css" />
     <Content Include="README.md" />
+    <Content Include="subs.txt" />
+    <Content Include="views\duplicate.pug" />
     <Content Include="views\sent.pug" />
     <Content Include="views\index.pug" />
     <Content Include="views\layout.pug" />

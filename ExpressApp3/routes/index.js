@@ -5,36 +5,43 @@ var fs = require("fs");
 
 
 /* GET home page. */
-var getData = function() {
-    var data = {
-        'item1': "http://public-domain-photos.com/free-stock-photos-1/flowers/cactus-76.jpg",
-        'item2': "http://public-domain-photos.com/free-stock-photos-1/flowers/cactus-77.jpg",
-        'item3': "http://public-domain-photos.com/free-stock-photos-1/flowers/cactus-78.jpg",
-        'text': "Hello World"
-    };
-    return data;
-};
 
 router.get("/",
     function(req, res) {
-        res.render("index", { title: "Express", "data": getData() });
+        res.render("index", { title: "Code Mailer Bot" });
     });
 
 router.post("/",
     function(req, res) {
         console.log(JSON.stringify(req.body));
 
-        fs.readFile("codeslist.txt",
+        fs.readFile("emails.txt",
             "utf8",
             function(err, data) {
                 if (err) throw err;
                 var split = data.split(/\r?\n/);
-                var code = split.shift();
-                res.render("sent", { 'email': req.body.email, 'code': code });
-                emailCode(req.body.email, code);
-                fs.writeFile("codeslist.txt", split.join("\n"), function (err, data) { if (err) throw err; });
-                fs.appendFile("emails.txt", req.body.email, function (err) { if (err) throw err; });
+                if (split.includes(req.body.email)) {
+                    res.render("duplicate", { 'email': req.body.email});
+                } else {
+                    fs.readFile("codeslist.txt",
+                        "utf8",
+                        function(err, data) {
+                            if (err) throw err;
+                            var split = data.split(/\r?\n/);
+                            var code = split.shift();
+                            res.render("sent", { 'email': req.body.email, 'code': code });
+                            emailCode(req.body.email, code);
+                            fs.writeFile("codeslist.txt",
+                                split.join("\n"),
+                                function(err, data) { if (err) throw err; });
+                            fs.appendFile("emails.txt", req.body.email + "\n", function(err) { if (err) throw err; });
+                            if (req.body.checkbox === "on")
+                                fs.appendFile("subs.txt", req.body.email + "\n", function(err) { if (err) throw err; });
+                        });
+                }
+
             });
+
 
     });
 
@@ -45,7 +52,7 @@ var transporter;
 
 fs.readFile("auth.txt",
     "utf8",
-    function (err, data) {
+    function(err, data) {
         if (err) throw err;
         transporter = nodemailer.createTransport({
             service: "gmail",

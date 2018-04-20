@@ -1,0 +1,3 @@
+C:\Users\Admin\Source\Repos\CodeMailerBot\ExpressApp3\obj\Debug\ExpressApp3.njsprojResolveAssemblyReference.cache
+C:\Users\Admin\Source\Repos\CodeMailerBot\ExpressApp3\obj\Debug\ExpressApp3.njsproj.CoreCompileInputs.cache
+C:\Users\Admin\Source\Repos\CodeMailerBot\ExpressApp3\bin\Microsoft.NodejsTools.WebRole.dll
