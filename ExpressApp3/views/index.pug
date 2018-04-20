@@ -1,0 +1,17 @@
+﻿extends layout
+
+
+block content
+    link(rel='stylesheet',href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css')
+    div.container
+        div.jumbotron
+            h1 Code Mailer Bot
+    div.container
+        div.jumbotron
+            form(name="add-estimation", method="post")
+                div.input-group
+                    span#basic-addon1.input-group-addon Your email address:
+                    input(type="text", name="email", aria-describedby="basic-addon1", placeholder="yourname@gmail.com").form-control
+                p 
+                div    
+                    input(type="submit", value="Send me a code").btn-primary.btn.btn-lg
